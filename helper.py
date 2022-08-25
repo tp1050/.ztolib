@@ -7,12 +7,22 @@ import pwd
 import json
 import re
 import copy
+import datetime
 
 
 ### Global Static Values
 UNIN = '<!NO!>'
 INSRTSTMTTEMPLATE = 'INSERT INTO {TABLE}({COLNAMES}) VALUES({VALS})'
 
+
+def deprecate(func):
+    def wrapper( **kwargs):
+        replacement_func=UNIN
+        if "replacement_func" in kwargs:
+            replacement_func=kwargs["replacement_func"]
+        disp(f"This is deprecated move on to:{replacement_func}")
+        func( **kwargs)
+    return wrapper
 
 ###Numerical
 ###*** CONVERSIONS
