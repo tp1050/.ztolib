@@ -8,7 +8,7 @@ import json
 import re
 import copy
 import datetime
-
+import binascii
 
 ### Global Static Values
 UNIN = '<!NO!>'
@@ -260,131 +260,25 @@ def isInitialized(obj):
 
 def getUserName():
     ret = pwd.getpwuid(os.geteuid()).pw_name
-    #b=pwd.getpwuid( os.getuid() )[ 0 ]
     return ret
 
+def str2digit_encode(x):
+    ret=[]
+    if isinstance(x,list):
+        for i in x:
+            ret.append(str2digit_encode(i))
+    else:
+        ret=binascii.hexlify(x.encode('utf-8')).decode()
+    return ret
 
-#######
-####
-#
-# def nameSpace(
-#     self, scope='instance', filter='public', deep=True, format="dict"
-# ):
-#     tempDic = {}
-#     """ Scope section"""
-#     if scope == 'instance':
-#         scope = self
-#     elif scope == 'class':
-#         scope = type(self)
-#
-#     """Copy method matters if caller needs to update the source"""
-#     if deep:
-#         tempDic = copy.deepcopy(vars(scope))
-#     else:
-#         tempDic = copy.copy(vars(self))
-#
-#     """filter"""
-#     retDic = {}
-#     if filter == 'public':
-#         f = filter(lambda e: not e[0].startswith('_'), tempDic.items())
-#         retDic.update(dict(f))
-#     elif filter == 'all':
-#         retDic.update(tempDic)
-#     """format"""
-#     if format == 'keys':
-#         retDic = retDic.keys()
-#     elif format == 'values':
-#         retDic = retDic.values()
-#         return retDic
-#     elif format == 'dict':
-#         pass
-#     return retDic
-#
-#     #     def getDic(self, all="easy", format='dict', copy="deep"):
-#     #         """Returns attributes/property/etc
-#     #         all=     easy:simple variables
-#     #                 |instance: only instance level
-#     #                 |all : everything
-#     #                 |methods todo--> Return methods
-#     #         format=  dict   : name-space-mapping
-#     #                 |keys  : Variable names
-#     #                 |items : list of key,value tuple
-#     #                 |values
-#     # """
-#     #         dDic = {}
-#     #         if copy == "deep":
-#     #             dic = copy.deepcopy(vars(self))
-#     #         else:
-#     #             dic = vars(self)
-#     #         if all == 'instance':
-#     #             return self.__dict__
-#     #         elif all == "easy":
-#     #             for k, v in dic.items():
-#     #               if not k.startswith('_'):
-#     #                   dDic[k] = v
-#     #               elif all == '__':
-#     #                   for k, v in dic.items():
-#     #               if k.startswith('__'):
-#     #                   dDic[k] = v
-#     #                   elif all == '_':
-#     #               for k, v in dic.items():
-#     #                   if not k.startswith('__') and k.startswith('_'):
-#     #                       dDic[k] = v
-#     #                   elif all == 'all':
-#     #                       pass
-#     #                   if format == 'dict':
-#     #                   return dDic
-#     #                   elif format == 'keys':
-#     #                   return list(dDic.keys())
-#     #                   elif format == 'items':
-#     #                   return dDic.items()
-#     #                   elif format == 'values':
-#     #                   return list(dDic.values())
-#
-#     #
-#     # import dis
-#     # import inspect
-#     # from dill.source import getsource
-#     #
-#     # def rossva(func):
-#     #     def inner(*args, **kwargs):
-#     #         print("")
-#     #         print(func.__name__)
-#     #         print(inspect.getsource(func))
-#     #         print(inspect.getsourcelines(func))
-#     #         print(dis.dis(func))
-#     #         print( getsource(func))
-#     #         return func(*args, **kwargs)
-#     #     return inner
-#     #
-#     # def show(func):
-#     #     def inner(*args,**kwargs):
-#     #         print('This is the two separate args as inja hast',*args,*kwargs,'zortom')
-#     #         print('This is kwargs',', '.join('%s=%s' % kv for kv in kwargs.items()))
-#     #         return func(*args,**kwargs)
-#     #     return inner
-#     #
-#     #
-#     #
-#     #
-#     # # def digests(params):
-#     # # 	""" takes the raw input sent from browser and turns into a dictionary fixing the shorthands
-#     # # 	 fromat     {key}={value}"""
-#     # # 	try:
-#     # # 		pairs=params.split(',')
-#     # # 		ret={}
-#     # # 		for joft in pairs:
-#     # # 			key,value=joft.split('=')
-#     # # 			ret[key]=value
-#     # # 	except Exception as e:
-#     # # 		return str(e)
-#     #
-#     #
-#     # #
-#     # # def bechoogh(inP):
-#     # # 	""" Convert input from dic to x=ZY,j=iu,...."""
-#     # # 	res='{}={}'
-#     # # 	ret=''
-#     # # 	for key in inP:
-#     # # 		ret='{},{}'.format(ret,res.format(key,inP[key]))
-#     # # 	return ret[1:]
+def digit2str_decode(x):
+    ret=[]
+    if isinstance(x,list):
+        for i in x:
+            ret.append(digit2str_decode(i))
+    else:
+        try:
+            ret=binascii.unhexlify(x.encode('utf-8')).decode()
+        except  Exception as e:
+            pass
+    return ret

@@ -12,15 +12,13 @@ def getHTML(url,secure=0,format='html'):
     print("Method deprecitated do not use it")
     return loadURL(url=url,secure=secure)
 
-def get_tor_session(verbose=0):
+def get_tor_session(verbose=0,
+        proxy={'https': 'socks5://127.0.0.1:9050'}
+):
     disp('Getting a tor a session',verbose=verbose)
     session = requests.session()
-    session.proxies =  {
-                        'https': 'socks5://127.0.0.1:9050'
-                        # 'https': 'socks5://127.0.0.1:9050'
-                        }
-                       # 'http':  'socks5h://192.168.5.17:9050',
-                       #                    'https': 'socks5h://192.168.5.17:9050'
+    session.proxies.update(proxy)
+
     ret=""
     success="This browser is configured to use Tor"
     try:
@@ -35,7 +33,7 @@ def get_tor_session(verbose=0):
     return session
 
 
-def loadURL(url,secure=False,userAgent=UNIN,session=UNIN,format=UNIN,verbose=0):
+def loadURL(url,secure=False,userAgent=UNIN,session=UNIN,format=UNIN,verbose=0,verify=False):
     if secure:
         session=get_tor_session()
     elif isUnin(session):
@@ -44,7 +42,7 @@ def loadURL(url,secure=False,userAgent=UNIN,session=UNIN,format=UNIN,verbose=0):
             userAgent=uas[0]
     try:
         session.headers = {'User-Agent': userAgent}
-        resp=session.get(url)
+        resp=session.get(url,verify)
         if format=='json':
             try:
                 return resp.json()
