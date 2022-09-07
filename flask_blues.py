@@ -14,10 +14,10 @@ def echoJSON():
         return jsonify(data)
     else:
         return ""
-
-@flask_Utils.route('/', methods=['GET', 'POST'])
-def slash():
-    return render_template('index.html')
+#
+# @flask_Utils.route('/', methods=['GET', 'POST'])
+# def slash():
+#     return render_template('index.html')
 
 @flask_Utils.route('/myIP', methods=['GET', 'POST'])
 def flask_myip():
@@ -28,3 +28,14 @@ def flask_myip():
         ip = request.environ['HTTP_X_FORWARDED_FOR'] # if behind a proxy
     stmt=f'<html><body><h1>Hello</h1></body></html> {ip}'
     return stmt
+
+
+
+@flask_Utils.route('/giveback',methods=['POST','GET'])
+def giveback():
+    d=[]
+    a=request.form
+    for f in a:
+        d.append(f)
+    print(d)
+    return d

@@ -42,7 +42,7 @@ def loadURL(url,secure=False,userAgent=UNIN,session=UNIN,format=UNIN,verbose=0,v
             userAgent=uas[0]
     try:
         session.headers = {'User-Agent': userAgent}
-        resp=session.get(url,verify)
+        resp=session.get(url,verify=False)
         if format=='json':
             try:
                 return resp.json()

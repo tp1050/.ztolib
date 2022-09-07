@@ -1,5 +1,5 @@
-import sys
-sys.path.append('/home/c/PycharmProjects/lib')
+# import sys
+# sys.path.append('/home/c/PycharmProjects/lib')
 from helper import tprint,getArrayDim,save
 class TTable:
 	tableStyle='\n<style>\n\t table, th, td {   border:1px solid black; }\n </style>\n'
@@ -16,6 +16,8 @@ class TTable:
 		self.addRows(sections)
 
 	def addRow(self,row):
+		if isinstance(row,tuple):
+			row=list(row)
 		if len(row)==len(self.headers):
 			self.sections.append(row)
 		else: raise Exception('Khiar> Table Column Count miss-match')
@@ -26,7 +28,7 @@ class TTable:
 				self.addRow(row)
 		elif dims==1:
 			self.addRow(rows)
-		else: raise Exception('Khiar> Table Column Count miss-match')
+		else: raise Exception('Khiar> Table Column Count miss-match dim big')
 	def absorb(self,ttbl):
 		if ttbl.headers==self.headers:
 			for rows in ttbl.sections:

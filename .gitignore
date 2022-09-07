@@ -1,1 +1,9 @@
 *.pyc
+*.pyd
+*.jpg
+*.log
+*.pem
+*.crt
+*.key
+*.cnf
+*.conf
