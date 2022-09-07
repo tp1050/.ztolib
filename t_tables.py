@@ -1,6 +1,6 @@
 # import sys
 # sys.path.append('/home/c/PycharmProjects/lib')
-from helper import tprint,getArrayDim,save
+from helper import getArrayDim,save
 class TTable:
 	tableStyle='\n<style>\n\t table, th, td {   border:1px solid black; }\n </style>\n'
 	patternTable='\n<table style="width:100%">\n\t{}\n</table>\n'
