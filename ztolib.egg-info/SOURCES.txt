@@ -1,0 +1,6 @@
+setup.py
+ztolib.egg-info/PKG-INFO
+ztolib.egg-info/SOURCES.txt
+ztolib.egg-info/dependency_links.txt
+ztolib.egg-info/requires.txt
+ztolib.egg-info/top_level.txt

@@ -1,0 +1,6 @@
+{# all_links.html #}
+<ul>
+{% for url in links %}
+<li><a href="{{ url[0] }}">{{ url[1] }}</a></li>
+{% endfor %}
+</ul>

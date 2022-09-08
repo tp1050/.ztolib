@@ -281,3 +281,16 @@ def digit2str_decode(x):
         except  Exception as e:
             pass
     return ret
+
+def catalouge(inlist,index=UNIN,format='dict'):
+    """
+    Turn a list into a(default ordered 0-length of list)
+    indexed catalouge which is basically a dictionary
+    may return json if specifed
+    """
+    if isUnin(index):
+        index=list(range(0,len(inlist)))
+        cat=dict(zip(index,inlist))
+    if format=='json':
+        cat=json.dumps(cat)
+    return cat

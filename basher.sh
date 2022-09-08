@@ -9,3 +9,9 @@ ufw enable 9050/tcp
 torbala="curl --socks5 localhost:9050 --socks5-hostname localhost:9050 -s https://check.torproject.org/api/ip"
 # everything okay
 sudo systemctl restart tor
+
+python readyness
+
+apt-get install python3-pip
+
+python -m ensurepip --upgrade
